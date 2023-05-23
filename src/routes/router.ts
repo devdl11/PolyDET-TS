@@ -20,19 +20,16 @@ apiRouter.post(
       isAlphanumeric: true,
       trim: true,
       toLowerCase: true,
-      errorMessage: "Invalid app !",
     },
     app_version: {
       trim: true,
       toLowerCase: true,
       isSemVer: true,
-      errorMessage: "Invalid app !",
     },
     device_id: {
       isAlphanumeric: true,
       trim: true,
       toLowerCase: true,
-      errorMessage: "Invalid app !",
     },
   }),
   (req: Request, res: Response) => {
