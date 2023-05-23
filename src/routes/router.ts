@@ -2,6 +2,7 @@ import express, {Router, Request, Response} from "express"
 import { checkSchema, Result, validationResult } from "express-validator";
 import { register_new_device } from "./api_routes";
 import { APIResponses } from "../types/requests";
+import get_db_implementation from "../database";
 
 const apiRouter: Router = express.Router();
 
@@ -10,7 +11,12 @@ apiRouter.get("/hello", (req, res) => {
 });
 
 apiRouter.get("/dbconnectivity", (req, res) => {
-
+  get_db_implementation().is_connected().then(() => {
+    res.send("Online");
+  }).catch((err) => {
+    console.error("DB ERROR: ", err);
+    res.send("Offline");
+  });
 });
 
 apiRouter.post(

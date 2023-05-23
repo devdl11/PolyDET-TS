@@ -1,6 +1,6 @@
 export interface IDatabase {
-  is_connected(): boolean;
-  configure(): boolean;
+  is_connected(): Promise<void>;
+  configure(): Promise<boolean>;
   check_apphash(hash: &string): boolean | undefined;
   check_appversion(version: &string): boolean | undefined;
   check_deviceid(deviceid: &string): boolean | undefined;
