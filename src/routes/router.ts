@@ -7,16 +7,17 @@ import get_db_implementation from "../database";
 const apiRouter: Router = express.Router();
 
 apiRouter.get("/hello", (req, res) => {
-    res.send("Hello World !")
+    res.send("Hey !")
 });
 
-apiRouter.get("/dbconnectivity", (req, res) => {
-  get_db_implementation().is_connected().then(() => {
+apiRouter.get("/dbconnectivity", async (req, res) => {
+  try {
+    await get_db_implementation().is_connected();
     res.send("Online");
-  }).catch((err) => {
+  } catch (err) {
     console.error("DB ERROR: ", err);
     res.send("Offline");
-  });
+  }
 });
 
 apiRouter.post(
@@ -38,14 +39,14 @@ apiRouter.post(
       toLowerCase: true,
     },
   }),
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const val: Result = validationResult(req);
     if (val.isEmpty()) {
-        register_new_device(req, res);
+      res.send(await register_new_device(req, res));
     } else {
       res.send(JSON.stringify(APIResponses.ENDPOINT_API_ERROR));
     }
-  },
+  }
 );
 
 export default apiRouter;

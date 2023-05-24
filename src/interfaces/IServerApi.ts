@@ -7,5 +7,5 @@ export interface UserCertificate {
 }
 
 export interface IServerAPI {
-    register_user(device_id: string, app_version: string, app_hash: string): UserCertificate | undefined; 
+    register_user(device_id: string, app_version: string, app_hash: string): Promise<string>; 
 }
